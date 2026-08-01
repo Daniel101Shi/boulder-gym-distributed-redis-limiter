@@ -1,0 +1,35 @@
+erDiagram
+    GYMS ||--o{ WALLS : has
+    WALLS ||--o{ BOOKINGS : has
+    USERS ||--o{ BOOKINGS : makes
+
+    GYMS {
+        uuid id PK
+        string name
+        string location
+        timestamp created_at
+    }
+
+    WALLS {
+        uuid id PK
+        uuid gym_id FK
+        string name
+        int max_capacity
+        timestamp created_at
+    }
+
+    USERS {
+        uuid id PK
+        string name
+        string email
+        timestamp created_at
+    }
+
+    BOOKINGS {
+        uuid id PK
+        uuid user_id FK
+        uuid wall_id FK
+        timestamp time_slot
+        string status
+        timestamp created_at
+    }
