@@ -1,0 +1,33 @@
+{
+  "name": "boulder-gym-distributed-redis-limiter",
+  "version": "1.0.0",
+  "description": "A bouldering gym session booker, utilizing distrbuted systems, redis and psql. Written in express.js",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Daniel101Shi/boulder-gym-distributed-redis-limiter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Daniel101Shi/boulder-gym-distributed-redis-limiter/issues"
+  },
+  "homepage": "https://github.com/Daniel101Shi/boulder-gym-distributed-redis-limiter#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^26.1.2",
+    "jest": "^30.4.2",
+    "ts-jest": "^29.4.12",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^7.0.2"
+  }
+}
