@@ -13,24 +13,27 @@ async function getMaxCap(wallId: string): Promise<number> {
     }
 
     const result = await pool.query('SELECT max_capacity FROM walls WHERE id = $1', [wallId]); //max capcity of a wall set to expire @ TTL_CACHE
+    if (result.rows.length === 0) {
+        throw new Error('WALL_NOT_FOUND');
+    }
     const maxCap = result.rows[0].max_capacity;
 
-    redis.set(cacheKey, maxCap.toString(), 'EX', TTL_CACHE);
+    await redis.set(cacheKey, maxCap.toString(), 'EX', TTL_CACHE);
 
     return maxCap;
 }
 
-async function tryBookSlot(wallId: string, timeSlot: string): Promise<boolean> {
+export async function tryBookSlot(wallId: string, timeSlot: string): Promise<boolean> {
     const maxCap = await getMaxCap(wallId);
     const capKey = `capacity:${wallId}:${timeSlot}`; 
 
     const newCount = await redis.incr(capKey); //incrment headcount
 
     if (newCount === 1){
-        await redis.expire(capKey, TTL_CACHE); //headcount set to expire @ TTL Cache
+        await redis.expire(capKey, SLOT_SECONDS); //headcount set to expire @ SLOT_SECONDS 
     }
 
-    if(newCount > maxCapacity){
+    if(newCount > maxCap){
         await redis.decr(capKey);
         return false;
     }
