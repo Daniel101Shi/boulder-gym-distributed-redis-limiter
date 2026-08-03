@@ -30,7 +30,7 @@ export async function tryBookSlot(wallId: string, timeSlot: string): Promise<boo
     const newCount = await redis.incr(capKey); //incrment headcount
 
     if (newCount === 1){
-        await redis.expire(capKey, SLOT_SECONDS); //headcount set to expire @ SLOT_SECONDS 
+        await redis.expire(capKey, SLOT_SECONDS); //headcount set to expire @ SLOT_SECONDS, if you change SLOT_SECONDS please update the test 
     }
 
     if(newCount > maxCap){
